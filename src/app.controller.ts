@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 
 interface Category {
@@ -18,6 +18,8 @@ export class AppController {
     { id: 7, name: 'Games' },
   ];
 
+  private nextId = 8;
+
   constructor(private readonly appService: AppService) {}
 
   @Get()
@@ -25,8 +27,29 @@ export class AppController {
     return this.categories;
   }
 
-  @Get('/cat/:id')
-  getCat() {
-    return { id: 100, name: 'Mruczek' };
+  @Get(':id')
+  getSingleCategory(@Param('id') categoryId: string): Category {
+    return this.categories[+categoryId - 1];
+  }
+
+  @Post()
+  addNewCategory(@Body() category: { name: string }): Category {
+    const newCategory: Category = { id: this.nextId++, name: category.name };
+    this.categories.push(newCategory);
+
+    return newCategory;
+  }
+
+  @Delete(':id')
+  removeCategory(@Param('id') categoryId: string): Category {
+    const categoryToRemove = this.categories.find(
+      (category) => category.id === +categoryId,
+    );
+
+    if (categoryToRemove) {
+      this.categories.splice(categoryToRemove.id - 1, 1);
+    }
+
+    return categoryToRemove;
   }
 }

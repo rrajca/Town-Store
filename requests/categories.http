@@ -1,1 +1,16 @@
+### Get all categories
 GET http://localhost:3000/categories
+
+### Get single category
+GET http://localhost:3000/categories/2
+
+### Add new category
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+  "name": "Art"
+}
+
+### Delete single category
+DELETE http://localhost:3000/categories/3
