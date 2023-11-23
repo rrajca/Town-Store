@@ -5,6 +5,7 @@ import {
   Get,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Post,
 } from '@nestjs/common';
 import { AppService } from './app.service';
@@ -37,7 +38,7 @@ export class AppController {
   }
 
   @Get(':id')
-  getSingleCategory(@Param('id') categoryId: number): Category {
+  getSingleCategory(@Param('id', ParseIntPipe) categoryId: number): Category {
     return this.findCategory(categoryId);
   }
 
