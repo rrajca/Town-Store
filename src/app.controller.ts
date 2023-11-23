@@ -1,5 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { AppService } from './app.service';
+import { NewCategoryDto } from './new-category.dto';
 
 interface Category {
   id: number;
@@ -28,28 +37,40 @@ export class AppController {
   }
 
   @Get(':id')
-  getSingleCategory(@Param('id') categoryId: string): Category {
-    return this.categories[+categoryId - 1];
+  getSingleCategory(@Param('id') categoryId: number): Category {
+    return this.findCategory(categoryId);
   }
 
   @Post()
-  addNewCategory(@Body() category: { name: string }): Category {
-    const newCategory: Category = { id: this.nextId++, name: category.name };
+  addNewCategory(@Body() category: NewCategoryDto): Category {
+    const newCategory: Category = { id: this.nextId++, ...category };
     this.categories.push(newCategory);
 
     return newCategory;
   }
 
   @Delete(':id')
-  removeCategory(@Param('id') categoryId: string): Category {
-    const categoryToRemove = this.categories.find(
-      (category) => category.id === +categoryId,
-    );
+  removeCategory(@Param('id') categoryId: number) {
+    const category = this.findCategory(categoryId);
 
-    if (categoryToRemove) {
-      this.categories.splice(categoryToRemove.id - 1, 1);
+    if (category) {
+      this.categories = this.categories.filter(
+        (category) => category.id !== categoryId,
+      );
     }
 
-    return categoryToRemove;
+    return { id: categoryId, removed: true };
+  }
+
+  private findCategory(categoryId: number): Category {
+    const category = this.categories.find(
+      (category) => category.id === categoryId,
+    );
+
+    if (!category) {
+      throw new NotFoundException(`category with id: ${categoryId} not found`);
+    }
+
+    return category;
   }
 }

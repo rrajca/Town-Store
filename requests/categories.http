@@ -2,7 +2,7 @@
 GET http://localhost:3000/categories
 
 ### Get single category
-GET http://localhost:3000/categories/2
+GET http://localhost:3000/categories/3
 
 ### Add new category
 POST http://localhost:3000/categories
@@ -14,3 +14,28 @@ Content-Type: application/json
 
 ### Delete single category
 DELETE http://localhost:3000/categories/3
+
+### Testowanie poprawności body
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{}
+
+### Testowanie poprawności body #2 - hack my id!
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "Troll!"
+}
+
+### Testowanie poprawności body #3 - hack my fields...
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "Troll!",
+  "trollType": "Mountain"
+}
