@@ -51,14 +51,11 @@ export class AppController {
   }
 
   @Delete(':id')
-  removeCategory(@Param('id') categoryId: number) {
-    const category = this.findCategory(categoryId);
-
-    if (category) {
-      this.categories = this.categories.filter(
-        (category) => category.id !== categoryId,
-      );
-    }
+  removeCategory(@Param('id', ParseIntPipe) categoryId: number) {
+    this.findCategory(categoryId);
+    this.categories = this.categories.filter(
+      (category) => category.id !== categoryId,
+    );
 
     return { id: categoryId, removed: true };
   }
