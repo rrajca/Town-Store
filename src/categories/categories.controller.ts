@@ -10,25 +10,13 @@ import {
 } from '@nestjs/common';
 import { AppService } from '../app.service';
 import { NewCategoryDto } from './dto/new-category.dto';
-
-interface Category {
-  id: number;
-  name: string;
-}
+import { Category } from './category.interface';
+import { categoriesList } from './categories-list';
 
 @Controller('categories')
 export class CategoriesController {
-  private categories: Category[] = [
-    { id: 1, name: 'Groceries' },
-    { id: 2, name: 'Cosmetics' },
-    { id: 3, name: 'Toys' },
-    { id: 4, name: 'Dairy' },
-    { id: 5, name: 'Fashion' },
-    { id: 6, name: 'Electronics' },
-    { id: 7, name: 'Games' },
-  ];
-
   private nextId = 8;
+  private categories: Category[] = categoriesList;
 
   constructor(private readonly appService: AppService) {}
 

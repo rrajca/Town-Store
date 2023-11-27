@@ -1,19 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CategoriesController } from './categories.controller';
 import { AppService } from '../app.service';
+import { categoriesList } from './categories-list';
 
 describe('CategoriesController', () => {
   let categoriesController: CategoriesController;
 
-  const categories = [
-    { id: 1, name: 'Groceries' },
-    { id: 2, name: 'Cosmetics' },
-    { id: 3, name: 'Toys' },
-    { id: 4, name: 'Dairy' },
-    { id: 5, name: 'Fashion' },
-    { id: 6, name: 'Electronics' },
-    { id: 7, name: 'Games' },
-  ];
+  const categories = categoriesList;
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
