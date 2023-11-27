@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { CategoriesController } from './categories.controller';
+import { AppService } from '../app.service';
 
-describe('AppController', () => {
-  let appController: AppController;
+describe('CategoriesController', () => {
+  let categoriesController: CategoriesController;
 
   const categories = [
     { id: 1, name: 'Groceries' },
@@ -17,16 +17,16 @@ describe('AppController', () => {
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
+      controllers: [CategoriesController],
       providers: [AppService],
     }).compile();
 
-    appController = app.get<AppController>(AppController);
+    categoriesController = app.get<CategoriesController>(CategoriesController);
   });
 
   describe('root', () => {
     it('should return categories array', () => {
-      expect(appController.getAll()).toEqual(categories);
+      expect(categoriesController.getAll()).toEqual(categories);
     });
   });
 });

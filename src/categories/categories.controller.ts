@@ -8,8 +8,8 @@ import {
   ParseIntPipe,
   Post,
 } from '@nestjs/common';
-import { AppService } from './app.service';
-import { NewCategoryDto } from './new-category.dto';
+import { AppService } from '../app.service';
+import { NewCategoryDto } from './dto/new-category.dto';
 
 interface Category {
   id: number;
@@ -17,7 +17,7 @@ interface Category {
 }
 
 @Controller('categories')
-export class AppController {
+export class CategoriesController {
   private categories: Category[] = [
     { id: 1, name: 'Groceries' },
     { id: 2, name: 'Cosmetics' },
