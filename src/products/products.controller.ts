@@ -10,6 +10,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { Product } from './product.interface';
 import { productList } from './product-list';
@@ -34,8 +35,10 @@ export class ProductsController {
   }
 
   @Get()
-  getAll(): Product[] {
-    return this.products;
+  getAll(@Query('name') searchByName: string = ''): Product[] {
+    return this.products.filter((product) =>
+      product.name.toLowerCase().includes(searchByName.toLowerCase()),
+    );
   }
 
   @Get(':id')

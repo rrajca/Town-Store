@@ -26,3 +26,6 @@ Content-Type: application/json
 
 ### [D]elete product
 DELETE http://localhost:3000/products/2
+
+### Search products by name:
+GET http://localhost:3000/products?name=atu
