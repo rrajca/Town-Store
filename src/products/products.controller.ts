@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Logger,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Patch,
@@ -16,6 +17,7 @@ import { Product } from './product.interface';
 import { NewProductDto } from './dto/new-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
+import * as fsp from 'node:fs/promises';
 
 @Controller('products')
 export class ProductsController {
@@ -34,7 +36,24 @@ export class ProductsController {
   getAll(@Query('name') searchByName: string): readonly Product[] {
     return this.productService.getAll(searchByName);
   }
-  w;
+
+  // @Get('test-file')
+  // async getAllFromFile() {
+  //   try {
+  //     const fileData = await fsp.readFile('not-existing-file.txt');
+  //     return { fileData };
+  //   } catch {
+  //     throw new NotFoundException(
+  //       'Missing file. Cannot find not-existing-file.txt',
+  //     );
+  //   }
+  // }
+
+  @Get('test-file')
+  async getAllFromFile() {
+    const fileData = await fsp.readFile('not-existing-file.txt');
+    return { fileData };
+  }
 
   @Get(':id')
   getOne(@Param('id', ParseIntPipe) productId: number): Product {
