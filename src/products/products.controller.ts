@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
@@ -6,18 +7,22 @@ import {
   HttpCode,
   HttpStatus,
   Logger,
-  NotFoundException,
   Param,
   ParseIntPipe,
   Patch,
   Post,
   Query,
+  Req,
 } from '@nestjs/common';
 import { Product } from './product.interface';
 import { NewProductDto } from './dto/new-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
 import * as fsp from 'node:fs/promises';
+import {
+  AcceptableLanguages,
+  ClientLanguage,
+} from '../middlewares/client-language.decorator';
 
 @Controller('products')
 export class ProductsController {
@@ -53,6 +58,15 @@ export class ProductsController {
   async getAllFromFile() {
     const fileData = await fsp.readFile('not-existing-file.txt');
     return { fileData };
+  }
+
+  @Get('sample-error')
+  async getSampleError(@ClientLanguage() lang: AcceptableLanguages) {
+    throw new BadRequestException(
+      lang === 'pl'
+        ? 'Błąd z przykładową wiadomością'
+        : 'Error with sample message',
+    );
   }
 
   @Get(':id')

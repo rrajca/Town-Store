@@ -4,13 +4,19 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
 
 @Catch(Error)
 export class AllErrorsFilter implements ExceptionFilter {
+  private logger = new Logger(AllErrorsFilter.name);
+
   catch(exception: Error | any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
+
+    this.logger.debug(`Client preferred language is ${request['language']}`);
 
     if (exception instanceof HttpException) {
       // jeżeli to NestJS'owy błąd, instancja HttpException, to obsłuż ją tak jak do tej pory:
