@@ -6,6 +6,7 @@ import {
   HttpCode,
   HttpStatus,
   Logger,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Patch,
@@ -17,8 +18,6 @@ import { NewProductDto } from './dto/new-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsService } from './products.service';
 import * as fsp from 'node:fs/promises';
-
-``;
 
 @Controller('products')
 export class ProductsController {
