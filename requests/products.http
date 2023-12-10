@@ -1,6 +1,7 @@
 ### [C]reate new product
 POST http://localhost:3000/products
 Content-Type: application/json
+Authorization: Bearer cbbU7yWFGznUx6V4gxq1a
 
 {
   "name": "Kubek",

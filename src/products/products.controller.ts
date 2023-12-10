@@ -12,7 +12,7 @@ import {
   Patch,
   Post,
   Query,
-  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { Product } from './product.interface';
 import { NewProductDto } from './dto/new-product.dto';
@@ -23,6 +23,7 @@ import {
   AcceptableLanguages,
   ClientLanguage,
 } from '../middlewares/client-language.decorator';
+import { ApiKeyGuard } from '../guards/api-key.guard';
 
 @Controller('products')
 export class ProductsController {
@@ -31,6 +32,7 @@ export class ProductsController {
   constructor(private productService: ProductsService) {}
 
   @Post()
+  @UseGuards(ApiKeyGuard)
   addNew(@Body() product: NewProductDto): Product {
     this.logger.log('About to add');
     this.logger.log(product);
