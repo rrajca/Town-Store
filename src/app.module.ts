@@ -6,6 +6,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { CookieCheckMiddleware } from './middlewares/cookie-check.middleware';
 import { LanguageExtractorMiddleware } from './middlewares/language-extractor.middleware';
 import { ProductModule } from './product/product.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ProductModule } from './product/product.module';
       },
     }),
     ProductModule,
+    OrdersModule,
   ],
   controllers: [],
   providers: [
