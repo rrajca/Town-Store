@@ -1,14 +1,11 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
-import { CategoriesController } from './categories/categories.controller';
-import { ProductsController } from './products/products.controller';
-import { ProductsService } from './products/products.service';
-import { CategoriesService } from './categories/categories.service';
 import { LoggerModule } from 'nestjs-pino';
 import * as path from 'path';
 import { AllErrorsFilter } from './errors/all-errors.filter';
 import { APP_FILTER } from '@nestjs/core';
 import { CookieCheckMiddleware } from './middlewares/cookie-check.middleware';
 import { LanguageExtractorMiddleware } from './middlewares/language-extractor.middleware';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -22,11 +19,10 @@ import { LanguageExtractorMiddleware } from './middlewares/language-extractor.mi
         quietReqLogger: true,
       },
     }),
+    ProductModule,
   ],
-  controllers: [CategoriesController, ProductsController],
+  controllers: [],
   providers: [
-    CategoriesService,
-    ProductsService,
     {
       provide: APP_FILTER,
       useClass: AllErrorsFilter,
