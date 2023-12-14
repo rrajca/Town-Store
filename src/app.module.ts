@@ -7,6 +7,7 @@ import { CookieCheckMiddleware } from './middlewares/cookie-check.middleware';
 import { LanguageExtractorMiddleware } from './middlewares/language-extractor.middleware';
 import { ProductModule } from './product/product.module';
 import { OrdersModule } from './orders/orders.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { OrdersModule } from './orders/orders.module';
     }),
     ProductModule,
     OrdersModule,
+    SharedModule,
   ],
   controllers: [],
   providers: [
