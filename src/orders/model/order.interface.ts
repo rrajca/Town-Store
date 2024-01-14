@@ -5,5 +5,6 @@ export interface Order {
   title: string;
   madeAt: Date;
   products: ProductInOrder[];
+  status: 'OPENED' | 'IN_PROGRESS' | 'SHIPPED' | 'CLOSED';
   totalPrice: number;
 }

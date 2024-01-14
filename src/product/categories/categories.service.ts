@@ -1,11 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {Inject, Injectable, Logger, NotFoundException} from '@nestjs/common';
 import { Category } from './category.interface';
 import { categoriesList } from './categories-list';
 import { NewCategoryDto } from './dto/new-category.dto';
+import {Knex} from "knex";
 
 @Injectable()
 export class CategoriesService {
+  private logger = new Logger(CategoriesService.name);
   private categories: Category[] = categoriesList;
+
+  constructor(@Inject('DbConnection') private readonly knex: Knex) {
+  }
 
   getAll(): readonly Category[] {
     return this.categories;

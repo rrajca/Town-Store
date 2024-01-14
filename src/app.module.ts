@@ -8,6 +8,7 @@ import { LanguageExtractorMiddleware } from './middlewares/language-extractor.mi
 import { ProductModule } from './product/product.module';
 import { OrdersModule } from './orders/orders.module';
 import { SharedModule } from './shared/shared.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { SharedModule } from './shared/shared.module';
     ProductModule,
     OrdersModule,
     SharedModule,
+    DatabaseModule,
   ],
   controllers: [],
   providers: [
